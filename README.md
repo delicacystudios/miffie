@@ -48,3 +48,4 @@
 
 LICENSE: [**MIT**](LICENSE)
 > **Copyright Miffie © 2021**
+> [Miffie v2](https://github.com/Delicacy-Sound/miffie)
