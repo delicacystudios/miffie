@@ -16,7 +16,7 @@
 
 • Hosting databases connected
 
-<div align="left"><img src="https://media.discordapp.net/attachments/916163399942037574/923067154985783357/Screenshot_2021-12-21_9.19.06_PM.png?width=375&height=377"></div>
+<div align="left"><img src="https://media.discordapp.net/attachments/922259224589922354/923074206248349726/Screenshot_2021-12-21_9.46.58_PM.png?width=338&height=351"></div>
 
 ## 🚧 System Requirements
 
@@ -28,7 +28,7 @@
 
 ## ❄️ Bot Features
 
-<div align="left"><img src="https://media.discordapp.net/attachments/916163399942037574/923067154985783357/Screenshot_2021-12-21_9.19.06_PM.png?width=375&height=377"></div>
+<div align="left"><img src="https://media.discordapp.net/attachments/922259224589922354/923074206248349726/Screenshot_2021-12-21_9.46.58_PM.png?width=338&height=351"></div>
 
 
 ## ✨ Developers

@@ -14,10 +14,9 @@ const ModLogs = require ('./events/Server-Logs') // Defining the modlogs events
 const config = require ('./configs/config.json') // Defining the config.json file
 const token = process.env['TOKEN']
 
-
 client.on("ready", () => {
 
-    console.log(`Logged in as ${client.user.tag}`)
+    console.log(`Logged in as ${client.user.tag}. Bot Invite: https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot`)
 
     MessageDelete(client)
     guildMemberAdd(client)
@@ -26,47 +25,7 @@ client.on("ready", () => {
     messageReactionAdd(client)
 })
 
-mongoose.connect(config.MongoURL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
-});
-
-const player = fs.readdirSync('./player').filter(file => file.endsWith('.js'));
-
-for (const file of player) {
-    const event = require(`./player/${file}`);
-    client.player.on(file.split(".")[0], event.bind(null, client));
-};
-
-
-//Command Handler
-client.commands = new Discord.Collection(); // Defining the client commands for the commands folder
-client.aliases = new Discord.Collection(); // Defining the client aliases for the commands folder
-cooldowns = new Discord.Collection()
-
-let table = new ascii("Bot Commands") // Defining a new table with the title "Bot Commands"
-table.setHeading("Command", "Load Status") // Adding headers to the table for the bot commands
-
-fs.readdirSync("./commands/").forEach(dir => { // Reading all files in the commands folder
-    const commands = fs.readdirSync(`./commands/${dir}/`).filter(file => file.endsWith(".js")); // Defining commands and filtering the files to only get the names 
-    for (let file of commands) {  // looping through the files
-        let pull = require(`./commands/${dir}/${file}`); 
-        if (pull.config.name) { 
-            client.commands.set(pull.config.name, pull); // setting the client commands as the command name 
-            table.addRow(file, 'Ready!');  // adding a row to the table to say the file name and the load status
-        } else {
-            table.addRow(file, `error -> missing a help.name, or help.name is not a string.`); // Adding another row to the table stating the name of the file and the error
-            return; 
-        }
-        pull.config.aliases.forEach(alias => { 
-            client.aliases.set(alias, pull.config.name) // setting the command aliases as the command aliases
-          })
-        }
-})
-console.log(table.toString()); //showing the table
-
-///////////
+///
 const activities = [
   "m/help | /help",
   "❄ Marry Christmas ❄",
@@ -81,9 +40,7 @@ client.on("ready", () => {
     client.user.setActivity(newActivity);
   }, 5000);
 });
-/////////
-
-/////////
+///
 client.on("guildCreate", guild => {
   let channelID;
   let channels = guild.channels.cache;
@@ -120,7 +77,47 @@ client.on("message", message => {
         message.channel.send(mention);
     };
 });
-/////////
+
+client.login(token)
+mongoose.connect(config.MongoURL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+});
+
+const player = fs.readdirSync('./player').filter(file => file.endsWith('.js'));
+
+for (const file of player) {
+    const event = require(`./player/${file}`);
+    client.player.on(file.split(".")[0], event.bind(null, client));
+};
+
+
+//Command Handler
+client.commands = new Discord.Collection();
+client.aliases = new Discord.Collection(); // Defining the client aliases for the commands folder
+cooldowns = new Discord.Collection()
+
+let table = new ascii("Bot Commands") // Defining a new table with the title "Bot Commands"
+table.setHeading("Command", "Load Status") // Adding headers to the table for the bot commands
+
+fs.readdirSync("./commands/").forEach(dir => { // Reading all files in the commands folder
+    const commands = fs.readdirSync(`./commands/${dir}/`).filter(file => file.endsWith(".js")); // Defining commands and filtering the files to only get the names 
+    for (let file of commands) {  // looping through the files
+        let pull = require(`./commands/${dir}/${file}`); 
+        if (pull.config.name) { 
+            client.commands.set(pull.config.name, pull); // setting the client commands as the command name 
+            table.addRow(file, 'Ready!');  // adding a row to the table to say the file name and the load status
+        } else {
+            table.addRow(file, `error -> missing a help.name, or help.name is not a string.`); // Adding another row to the table stating the name of the file and the error
+            return; 
+        }
+        pull.config.aliases.forEach(alias => { 
+            client.aliases.set(alias, pull.config.name) // setting the command aliases as the command aliases
+          })
+        }
+})
+console.log(table.toString()); //showing the table
 
 client.on("message", async message => {
 
@@ -205,6 +202,24 @@ client.on("message", async message => {
         console.log(err);
     }
 
+/*
+
+███╗░░░███╗███████╗░██████╗░██████╗░█████╗░░██████╗░███████╗  ███████╗██╗░░░██╗███████╗███╗░░██╗████████╗
+████╗░████║██╔════╝██╔════╝██╔════╝██╔══██╗██╔════╝░██╔════╝  ██╔════╝██║░░░██║██╔════╝████╗░██║╚══██╔══╝
+██╔████╔██║█████╗░░╚█████╗░╚█████╗░███████║██║░░██╗░█████╗░░  █████╗░░╚██╗░██╔╝█████╗░░██╔██╗██║░░░██║░░░
+██║╚██╔╝██║██╔══╝░░░╚═══██╗░╚═══██╗██╔══██║██║░░╚██╗██╔══╝░░  ██╔══╝░░░╚████╔╝░██╔══╝░░██║╚████║░░░██║░░░
+██║░╚═╝░██║███████╗██████╔╝██████╔╝██║░░██║╚██████╔╝███████╗  ███████╗░░╚██╔╝░░███████╗██║░╚███║░░░██║░░░
+╚═╝░░░░░╚═╝╚══════╝╚═════╝░╚═════╝░╚═╝░░╚═╝░╚═════╝░╚══════╝  ╚══════╝░░░╚═╝░░░╚══════╝╚═╝░░╚══╝░░░╚═╝░░░
+
+░  ░██████╗███████╗████████╗  ██████╗░██████╗░███████╗███████╗██╗██╗░░██╗
+╗ ██╔════╝██╔════╝╚══██╔══╝  ██╔══██╗██╔══██╗██╔════╝██╔════╝██║╚██╗██╔╝
+  ╚█████╗░█████╗░░░░░██║░░░  ██████╔╝██████╔╝█████╗░░█████╗░░██║░╚███╔╝░
+  ░╚═══██╗██╔══╝░░░░░██║░░░  ██╔═══╝░██╔══██╗██╔══╝░░██╔══╝░░██║░██╔██╗░
+  ██████╔╝███████╗░░░██║░░░  ██║░░░░░██║░░██║███████╗██║░░░░░██║██╔╝╚██╗
+  ╚═════╝░╚══════╝░░░╚═╝░░░  ╚═╝░░░░░╚═╝░░╚═╝╚══════╝╚═╝░░░░░╚═╝╚═╝░░╚═╝
+*/
+
+
 
  } else if (data) {
 
@@ -286,5 +301,3 @@ client.on("message", async message => {
 }
 
 })
-
-client.login(token)
