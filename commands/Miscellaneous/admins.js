@@ -1,4 +1,5 @@
 const Discord = require ('discord.js')
+
 module.exports.config = {
     name: "listadmins",
     aliases: [],
@@ -14,21 +15,19 @@ module.exports.config = {
 }
 
 module.exports.run = async (client, message, args) => {
+  await message.guild.members.fetch()
 
-await message.guild.members.fetch() // Fetching the guild members so they can be looped through
+  let arr = []
+  message.guild.members.cache.forEach(async member => {
 
-let arr = [] // Defining the array for the members
-message.guild.members.cache.forEach(async member => { // Looping through guild members
+    if (member.permissions.has("ADMINISTRATOR")) {
+      arr.push(`<@${member.id}>`)
+    }
+  })
 
-if (member.permissions.has("ADMINISTRATOR")) {
-    arr.push(`<@${member.id}>`) // If the member has the ADMINISTRATOR permissions they get pushed into the array
-}})
-
-const embed = new Discord.MessageEmbed()
-.setAuthor(`${message.guild.name} Administrators! [${arr.length}]`, message.guild.iconURL())
-.setColor('#36393f')
-.setDescription(arr.join("\n")) // Sending the array in the embed joined by a \n
-
-message.channel.send(embed)
-
+  const embed = new Discord.MessageEmbed()
+    .setAuthor(`${message.guild.name} Administrators! [${arr.length}]`, message.guild.iconURL())
+    .setColor('#36393f')
+    .setDescription(arr.join("\n"))
+  message.channel.send(embed)
 }

@@ -1,4 +1,5 @@
 const Discord = require ('discord.js')
+
 module.exports.config = {
     name: "bug",
     aliases: [],
@@ -14,18 +15,18 @@ module.exports.config = {
 }
 
 module.exports.run = async (client, message, args) => {
+  const channel = client.channels.cache.get('921491398656667719')
 
-const channel = client.channels.cache.get('819688606780227635') // Defining the channel to send the bug to. Make sure this is your channel ID!
-
-const embed = new Discord.MessageEmbed()
-.setAuthor(`${message.author.tag}`, message.author.displayAvatarURL({ dynamic: true, size: 512 }))
-.setColor('#36393f')
-.setTimestamp()
-.setFooter(`Reporter ID: ${message.author.id}`)
-.addFields(
-    {name: 'Bug Reported', value: `${args.join(" ")}`} // Adding a field with the bug that was reported
-)
-
-channel.send(embed)
-
+  const embed = new Discord.MessageEmbed()
+    .setAuthor(`${message.author.tag}`, message.author.displayAvatarURL({ dynamic: true, size: 512 }))
+    .setColor('#36393f')
+    .setTimestamp()
+    .setFooter(`Reporter ID: ${message.author.id}`)
+    .addFields(
+      {
+        name: 'Bug Reported', 
+        value: `${args.join(" ")}`
+      }
+    )
+  channel.send(embed)
 }

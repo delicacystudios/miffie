@@ -58,8 +58,9 @@ if (!args[0]) {
 if (data) {
 
 const embed = new Discord.MessageEmbed()
-.setAuthor(`${client.user.username} Help`, client.user.displayAvatarURL({ dynamic: true, size: 512 }))
+.setAuthor(`${client.user.username}'s Help List`)
 .setColor('#36393f')
+.setThumbnail('https://media.discordapp.net/attachments/922259224589922354/923074763637788722/PicsArt_12-12-02.29.02.png')
 .setDescription(`My prefix for this server is \`${data.Prefix}\``)
 .setFooter(`To see more information on a command use the command ${data.Prefix}help <Command>`)
 .addFields(
@@ -79,8 +80,9 @@ message.reply(embed)
 } else if (!data) {
 
 const embed = new Discord.MessageEmbed()
-.setAuthor(`${client.user.username} Help`, client.user.displayAvatarURL({ dynamic: true, size: 512 }))
+.setAuthor(`${client.user.username}'s Help List`)
 .setColor('#36393f')
+.setThumbnail('https://media.discordapp.net/attachments/922259224589922354/923074763637788722/PicsArt_12-12-02.29.02.png')
 .setDescription(`My prefix for this server is \`>\``)
 .setFooter(`To see more information on a command use the command >help <Command>`)
 .addFields(
@@ -107,7 +109,7 @@ if (!cmd) return message.channel.send(`No command found with that name or alias,
 if (cmd.config.aliases.length > 0) {
 
 let HelpEmbed = new Discord.MessageEmbed()
-.setTitle(`${cmd.config.name} Help`, message.author.displayAvatarURL({ format: 'png', dynamic: true, size: 1024 }))
+.setTitle(`${cmd.config.name}'s Help List`)
 .setColor('#36393f')
 .addFields(
     {name: 'Command Description', value: cmd.config.description},
@@ -120,7 +122,7 @@ message.reply(HelpEmbed)
 } else {
 
 let HelpEmbed = new Discord.MessageEmbed()
-.setTitle(`${cmd.config.name} Help`, message.author.displayAvatarURL({ format: 'png', dynamic: true, size: 1024 }))
+.setTitle(`${cmd.config.name}'s Help List`)
 .setColor('#36393f')
 .addFields(
     {name: 'Command Description', value: cmd.config.description},
@@ -140,7 +142,7 @@ if (!cmd) return message.channel.send(`No command found with that name or alias,
 if (cmd.config.aliases.length > 0) {
 
 let HelpEmbed = new Discord.MessageEmbed()
-.setTitle(`${cmd.config.name} Help`, message.author.displayAvatarURL({ format: 'png', dynamic: true, size: 1024 }))
+.setTitle(`${cmd.config.name}'s Help List`)
 .setColor('#36393f')
 .addFields(
     {name: 'Command Description', value: cmd.config.description},
@@ -153,7 +155,7 @@ message.reply(HelpEmbed)
 } else {
     
 let HelpEmbed = new Discord.MessageEmbed()
-.setTitle(`${cmd.config.name} Help`, message.author.displayAvatarURL({ format: 'png', dynamic: true, size: 1024 }))
+.setTitle(`${cmd.config.name}'s Help List`)
 .setColor('#36393f')
 .addFields(
     {name: 'Command Description', value: cmd.config.description},

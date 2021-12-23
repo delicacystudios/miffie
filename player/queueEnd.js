@@ -1,5 +1,6 @@
 const emotes = require ('../configs/emotes.json')
 
 module.exports = (client, message, queue) => {
-    message.channel.send(`${emotes.music} - Music stopped as there isn\'t anything left in the queue, use m!play to add another song!`);
+  // const embed = new Discordjs.MessageEmbed()
+    message.channel.send(`${emotes.music} | No more tracks in queue!`);
 };

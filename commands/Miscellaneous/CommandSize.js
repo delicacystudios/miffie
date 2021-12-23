@@ -1,4 +1,5 @@
 const Discord = require ('discord.js')
+
 module.exports.config = {
     name: "commandsize",
     aliases: [],
@@ -14,12 +15,9 @@ module.exports.config = {
 }
 
 module.exports.run = async (client, message, args) => {
-
-const embed = new Discord.MessageEmbed()
-.setTitle('Bot Command Size')
-.setColor('#36393f')
-.setDescription(`There are `+client.commands.size+' commands!') // Setting the embed description as the client.commands.size for the command size
-
-message.reply(embed)
-
+  const embed = new Discord.MessageEmbed()
+    .setTitle('Bot Command Size')
+    .setColor('#36393f')
+    .setDescription(`There are `+client.commands.size+' commands!')
+  message.reply(embed)
 }
